@@ -16,6 +16,19 @@ namespace AntheaSales.Models
         public double TotalImportTaxAmount { get; set; }
         public double TotalAmount { get; set; }
 
+        //public void Calculate()
+        //{
+        //    double productPrice = this.Product.Price;
+        //    double salesTaxRate = this.Product.Category.SalesTax;
+        //    double importTaxRate = this.Product.ImportTaxRate ?? 0d;
+
+        //    TotalPrice = productPrice * this.Quantity;
+        //    TotalSalesTaxAmount = (((productPrice / 100) * salesTaxRate) * this.Quantity).Rnd();
+        //    TotalImportTaxAmount = (((productPrice / 100) * importTaxRate) * this.Quantity).Rnd();
+
+        //    TotalAmount = Math.Round((TotalPrice + TotalSalesTaxAmount + TotalImportTaxAmount),2);
+        //}
+
         public void Calculate()
         {
             double productPrice = this.Product.Price;
@@ -23,10 +36,10 @@ namespace AntheaSales.Models
             double importTaxRate = this.Product.ImportTaxRate ?? 0d;
 
             TotalPrice = productPrice * this.Quantity;
-            TotalSalesTaxAmount = (((productPrice / 100) * salesTaxRate) * this.Quantity).Rnd();
-            TotalImportTaxAmount = (((productPrice / 100) * importTaxRate) * this.Quantity).Rnd();
+            TotalSalesTaxAmount = ((productPrice / 100) * salesTaxRate).Rnd() * this.Quantity;
+            TotalImportTaxAmount = ((productPrice / 100) * importTaxRate).Rnd() * this.Quantity;
 
-            TotalAmount = Math.Round((TotalPrice + TotalSalesTaxAmount + TotalImportTaxAmount),2);
+            TotalAmount = Math.Round((TotalPrice + TotalSalesTaxAmount + TotalImportTaxAmount), 2);
         }
     }
 }
